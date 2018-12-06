@@ -1,16 +1,20 @@
 #!/bin/bash
 
 source ./Services/db.sh
-#source ./Models/User.shm
+source ./Views/home.sh
+
+db_import User 1
 
 
 home_index() {
-    echo "home_index..."
-    firstname="John"
-    lastname="Doe"
-    db_create "User"
+    local title="HOME"
+    local skip=false;
+    home_view "$title"
+    case "$?" in
+        *) skip=true ;;
+    esac
 
-    echo "$firstname"
-
-    read -p "wciśnij dowolny klawisz aby kontynuować..."
+    if ! $skip; then
+        read -n 1 -s -r -p "wciśnij dowolny klawisz aby wrócić do menu..."
+    fi
 }

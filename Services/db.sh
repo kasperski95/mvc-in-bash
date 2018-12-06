@@ -1,7 +1,5 @@
 #!/bin/bash
-
-DB="./Database"
-DB_EXT="kas"
+source ./config.sh
 
 # create database directory if it doesn't exist
 if [ ! -d $DB ]; then
@@ -19,9 +17,14 @@ done
 
 #-------------------------------------------------------------
 
-db_create() {
-    local modelName=$1
-    local id=$2
+db_save() {
+    local modelName="$1"
+    local id="$2"
+
+    # find next id if not defined
+    if [ "$id" == "" ]; then
+        id=$(_db_getNewId "$modelName")
+    fi
 
     # extract keys
     local keys
@@ -32,19 +35,12 @@ db_create() {
     # get values using eval
     local values
     for i in ${keys[@]}; do
-        values+=($(eval echo \$$i))
-    done
-
-    # create directory if necessary
-    if [ ! -d "$DB/$modelName" ]; then
-        id=0
-        mkdir "$DB/$modelName"
-    else
-        # find next id if not defined
-        if [ ! -z ${id+x} ]; then
-            id=$(_db_getNewId "$DB/$modelName")
+        if [ "$key" == "ID" ]; then
+            values+=("$id")
+        else
+            values+=($(eval echo \$$modelName\_$i))
         fi
-    fi
+    done
 
     # output to file
     local file="$DB/$modelName/$id.$DB_EXT"
@@ -54,24 +50,28 @@ db_create() {
     done
 }
 
-db_read() {
-    echo "not implemented!"
+db_import() {
+    local modelName="$1" 
+    local id="$2"
+
+    # extract keys
+    local key value
+    while read -r line; do    
+        eval "User_${line%:*}=${line#*:}"
+    done < "$DB/$modelName/$id.$DB_EXT"
 }
 
-db_update() {
-    echo "not implemented!"
-}
+db_remove() {
+    local modelName="$1" 
+    local id="$2"
 
-db_delete() {
-    echo "not implemented!"
+    rm "$DB/$modelName/$id.$DB_EXT"
 }
 
 #-------------------------------------------------------------
 
-
 _db_getNewId() {
-    echo "0"
-    return 0
-    local dir=$1
-    ls $dir | sort -g
+    local id=$(ls $DB/$1/ | sort -r -n | head -n 1 | sed  "s/.$DB_EXT//")
+    ((id++))
+    echo $id
 }
