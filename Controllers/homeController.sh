@@ -5,6 +5,10 @@ source ./Views/UI/index.sh
 source ./Controllers/carInfoController.sh
 source ./Controllers/buyController.sh
 source ./Controllers/sellController.sh
+source ./Controllers/reserveController.sh
+source ./Controllers/searchController.sh
+source ./Controllers/testDriveController.sh
+source ./Controllers/transactionsController.sh
 source ./Services/db.sh
 db_import User $User_ID
 
@@ -20,7 +24,8 @@ home_index() {
         "Sprzedaj"\
         "Rezerwuj"\
         "Szukaj po marce"\
-        "Jazda testowa"
+        "Jazda testowa"\
+        "Faktury"
 
     home_handle $?
 }
@@ -31,6 +36,10 @@ home_handle() {
         "1") carInfo_index;;
         "2") buy_index;;
         "3") sell_index;;
+        "4") reserve_index;;
+        "5") search_index;;
+        "6") testDrive_index;;
+        "7") transactions_index;;
         *) setReturnValue 42;
     esac
 

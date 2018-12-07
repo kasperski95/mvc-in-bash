@@ -47,7 +47,7 @@ db_save() {
     local file="$DB/$modelName/$id.$DB_EXT"
     > $file
     for i in ${!keys[@]}; do
-        echo "${keys[$i]}:${values[$i]}" >> $file
+        echo "${keys[$i]}${DB_SEPARATOR}${values[$i]}" >> $file
     done
 }
 
@@ -59,7 +59,7 @@ db_import() {
     # extract keys
     local key value
     while read -r line; do    
-        eval "${modelName}_${line%:*}=\"${line#*:}\""
+        eval "${modelName}_${line%${DB_SEPARATOR}*}=\"${line#*${DB_SEPARATOR}}\""
     done < "$DB/$modelName/$id.$DB_EXT"
 }
 

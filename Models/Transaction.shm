@@ -2,3 +2,7 @@ ID
 UserID
 CarID
 type
+sum
+currency
+title
+date

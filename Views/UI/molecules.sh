@@ -19,3 +19,11 @@ ui_footer() {
     fi
     return $action
 }
+
+car_simpleListElement() {
+    echo "$Car_ID - $Car_brand"
+}
+
+transaction_listElement() {
+    echo "$Transaction_ID - $Transaction_title"
+}

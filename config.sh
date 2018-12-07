@@ -3,5 +3,7 @@
 WIDTH=60
 DB="./Database"
 DB_EXT="kas"
+DB_SEPARATOR="::"
 
+DEALER=1
 User_ID=2 # hardcoded

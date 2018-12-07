@@ -7,15 +7,21 @@ source ./Services/db.sh
 
 
 ui_list() {
-    while [ "$#" -gt "0" ]; do
-        echo "$1" && shift 1
+    local modelName=$1 && shift 1
+    local format=$1 && shift 1
+    local IDs=("$@")
+    for id in ${IDs[@]}; do
+        db_import $modelName $id
+        $format
     done
-    echo ""
+    
+    ui_footer
+    return $?
 }
 
 
 ui_actions() {
-    arr=("$@")
+    local arr=("$@")
     for i in ${!arr[@]}; do
         echo "$(($i+1)) - ${arr[$i]}"
     done

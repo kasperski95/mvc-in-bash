@@ -19,6 +19,7 @@ db_save User
 # CARS
 Car_UserID="1"
 Car_currency="PLN"
+Car_reservedByUserID="1"
 
 Car_brand="Audi"
 Car_price="10000"

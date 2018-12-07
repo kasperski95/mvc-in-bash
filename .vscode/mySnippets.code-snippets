@@ -71,7 +71,7 @@
 				"\tdone",
 				"\tui_actions \"\\${$2s[@]}\"",
 				"\t",
-				"\tbuy_handle \\$?",
+				"\t$1_handle \\$?",
 				"\t",
 				"\treturn \\$?",
 			"}",

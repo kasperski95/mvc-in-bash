@@ -14,12 +14,12 @@ sell_index() {
     for i in $(db_getAll Car); do
         db_import Car $i
         if [ $Car_UserID == $User_ID ]; then
-            Cars+=("$Car_brand")
+            Cars+=("$Car_ID")
         fi
     done
-    ui_actions "${Cars[@]}"
+    ui_list Car car_simpleListElement "${Cars[@]}"
     
-    buy_handle $?
+    sell_handle $?
     
     return $?
 }
@@ -31,10 +31,11 @@ sell_handle() {
     fi
     
     db_import Car $1
-    Car_UserID=1
+    Car_UserID=$DEALER
+    Car_reservedByUserID=$DEALER
     db_save Car $1
 
     ui_header "SPRZEDAJ: ${Car_brand}"
     
-    return 1
+    return 0
 }
