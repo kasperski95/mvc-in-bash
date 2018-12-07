@@ -6,4 +6,4 @@ DB_EXT="kas"
 DB_SEPARATOR="::"
 
 DEALER=1
-USER_ID=2 # hardcoded
+USER=2 # hardcoded

@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${USER_ID}
+db_import User ${USER}
 
 
 search_index() {

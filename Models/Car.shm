@@ -1,6 +1,8 @@
 ID
 UserID
 brand
+name
+year
 price
 currency
 mileage

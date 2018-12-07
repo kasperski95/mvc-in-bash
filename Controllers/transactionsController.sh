@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${USER_ID}
+db_import User ${USER}
 
 
 transactions_index() {
@@ -13,7 +13,7 @@ transactions_index() {
     local Transactions
     for i in $(db_getAll Transaction); do
         db_import Transaction $i
-        if [ $Transaction_UserID == $User_ID ]; then
+        if [ $Transaction_UserID == $USER ]; then
             Transactions+=("$Transaction_ID")
         fi
         

@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${User_ID}
+db_import User ${USER}
 
 
 unreserve_index() {
@@ -13,7 +13,7 @@ unreserve_index() {
     local Cars
     for i in $(db_getAll Car); do
         db_import Car $i
-        if [ $USER_ID == $Car_reservedByUserID ]; then
+        if [ $USER == $Car_reservedByUserID ]; then
             Cars+=("$Car_ID")
         fi
     done

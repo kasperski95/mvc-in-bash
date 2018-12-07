@@ -23,7 +23,7 @@ ui_footer() {
 #---------------------------------------------
 
 ui_car() {
-    echo "$Car_ID - $Car_brand"
+    echo "$Car_ID - $Car_brand $Car_name"
 }
 
 ui_transaction() {

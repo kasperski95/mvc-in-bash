@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${USER_ID}
+db_import User ${USER}
 
 
 reserve_index() {
@@ -32,19 +32,25 @@ reserve_handle() {
     
     db_import Car $1
 
-    Transaction_UserID=$USER_ID
+    ui_header "PŁATNOŚĆ ZA: ${Car_brand} $Car_name" 
+    ui_actions "Karta" "Gotówka" "Inna waluta"
+    case "$?" in
+        "1") Transaction_type="Płatność kartą";;
+        "2") Transaction_type="Płatność gotówką";;
+        "3") Transaction_type="Płatność inną walutą";;
+        *) return 3
+    esac
+    Transaction_UserID=$USER
     Transaction_CarID=$Car_ID
-    Transaction_title="Rezerwacja samochodu - ${Car_brand}"
+    Transaction_title="Rezerwacja samochodu - ${Car_brand} $Car_name"
     Transaction_sum=$(echo "scale=0;$Car_price/10" | bc)
     Transaction_currency=$Car_currency
     Transaction_date=$(date)
     db_save Transaction
 
-    
-    Car_reservedByUserID=$USER_ID
+    Car_reservedByUserID=$USER
     db_save Car $1
 
-    ui_header "${Car_brand}"
-    
+    title="REZULTAT TRANSAKCJI"
     return 0
 }

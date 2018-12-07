@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${USER_ID}
+db_import User ${USER}
 
 
 testDrive_index() {
@@ -33,22 +33,22 @@ testDrive_handle() {
     db_import Car $1
     ui_header "JAZDA TESTOWA: ${Car_brand}"
     
-    local date
+    local testDriveDate
     while [[ ! $date =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; do
         ui_header "JAZDA TESTOWA: ${Car_brand}"
         if [ "$date" != "" ]; then
             echo "Niepoprawna data."
         fi
-        read -p "Data [YYYY-MM-DD]: " date
+        read -p "Data [YYYY-MM-DD]: " testDriveDate
     done;
     echo ""
 
     ui_actions "Potwierdź"
 
     if [ $? == "1" ]; then
-        TestDrive_UserID=$USER_ID
+        TestDrive_UserID=$USER
         TestDrive_CarID=$1
-        TestDrive_date=$date    
+        TestDrive_date=$testDriveDate    
         db_save TestDrive
         return 0
     fi

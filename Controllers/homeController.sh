@@ -11,7 +11,7 @@ source ./Controllers/searchController.sh
 source ./Controllers/testDriveController.sh
 source ./Controllers/transactionsController.sh
 source ./Services/db.sh
-db_import User $USER_ID
+db_import User $USER
 
 
 
@@ -75,7 +75,7 @@ home_testDrives() {
     local TestDrives
     for i in $(db_getAll TestDrive); do
         db_import TestDrive $i
-        if [ $TestDrive_UserID == $USER_ID ]; then
+        if [ $TestDrive_UserID == $USER ]; then
             TestDrives+=("$TestDrive_ID")
         fi
     done
@@ -85,7 +85,7 @@ home_testDrives() {
         for id in ${TestDrives[@]}; do
             db_import TestDrive $id
             db_import Car $TestDrive_CarID
-            echo "$TestDrive_date - $Car_brand"
+            echo "$TestDrive_date - $Car_brand $Car_name"
         done
         echo ""
     fi

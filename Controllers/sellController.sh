@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${USER_ID}
+db_import User ${USER}
 
 
 sell_index() {
@@ -13,7 +13,7 @@ sell_index() {
     local Cars
     for i in $(db_getAll Car); do
         db_import Car $i
-        if [ $Car_UserID == $USER_ID ]; then
+        if [ $Car_UserID == $USER ]; then
             Cars+=("$Car_ID")
         fi
     done

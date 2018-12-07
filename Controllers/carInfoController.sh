@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User $USER_ID
+db_import User $USER
 
 
 
@@ -34,9 +34,10 @@ carInfo_handle() {
     fi
 
     db_import Car $1
-    ui_header "INFORMACJE O SAMOCHODZIE: $Car_brand"
+    ui_header "INFORMACJE O SAMOCHODZIE: $Car_brand $Car_name"
 
     echo "Cena: $Car_price $Car_currency"
+    echo "Rocznik: $Car_year"
     echo "Przebieg: $Car_mileage km"
     
     echo ""
@@ -49,8 +50,11 @@ carInfo_handle() {
             mkdir "./Exports"
         fi
 
-        file="./Exports/samochod_$Transaction_ID.txt"
-        echo "Cena: $Car_price $Car_currency" > $file
+        file="./Exports/samochod_$Car_ID.txt"
+        echo "Marka: $Car_brand" > $file
+        echo "Model: $Car_name" >> $file
+        echo "Cena: $Car_price $Car_currency" >> $file
+        echo "Rocznik: $Car_year" >> $file
         echo "Przebieg: $Car_mileage km" >> $file
         return 0
     fi
