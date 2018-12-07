@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User $User_ID
+db_import User $USER_ID
 
 
 
@@ -20,7 +20,7 @@ carInfo_index() {
         fi
         
     done
-    ui_list Car car_simpleListElement "${Cars[@]}"
+    ui_list Car ui_car "${Cars[@]}"
         
     carInfo_handle $?
 
@@ -34,10 +34,26 @@ carInfo_handle() {
     fi
 
     db_import Car $1
-    ui_header "$Car_brand"
+    ui_header "INFORMACJE O SAMOCHODZIE: $Car_brand"
 
     echo "Cena: $Car_price $Car_currency"
     echo "Przebieg: $Car_mileage km"
+    
+    echo ""
 
-    return 1
+    ui_actions "Eksportuj"
+    if [ "$?" == "1" ]; then
+        title="EKSPORT: samochod_$Car_ID.txt"
+    
+        if [ ! -d "./Exports" ]; then
+            mkdir "./Exports"
+        fi
+
+        file="./Exports/samochod_$Transaction_ID.txt"
+        echo "Cena: $Car_price $Car_currency" > $file
+        echo "Przebieg: $Car_mileage km" >> $file
+        return 0
+    fi
+
+    return 3
 }

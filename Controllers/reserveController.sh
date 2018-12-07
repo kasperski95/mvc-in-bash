@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${User_ID}
+db_import User ${USER_ID}
 
 
 reserve_index() {
@@ -17,7 +17,7 @@ reserve_index() {
             Cars+=("$Car_ID")
         fi
     done
-    ui_list Car car_simpleListElement "${Cars[@]}"
+    ui_list Car ui_car "${Cars[@]}"
     
     reserve_handle $?
     
@@ -30,7 +30,9 @@ reserve_handle() {
         return 3
     fi
     
-    Transaction_UserID=$User_ID
+    db_import Car $1
+
+    Transaction_UserID=$USER_ID
     Transaction_CarID=$Car_ID
     Transaction_title="Rezerwacja samochodu - ${Car_brand}"
     Transaction_sum=$(echo "scale=0;$Car_price/10" | bc)
@@ -38,8 +40,8 @@ reserve_handle() {
     Transaction_date=$(date)
     db_save Transaction
 
-    db_import Car $1
-    Car_reservedByUserID=$User_ID
+    
+    Car_reservedByUserID=$USER_ID
     db_save Car $1
 
     ui_header "${Car_brand}"

@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${User_ID}
+db_import User ${USER_ID}
 
 
 search_index() {
@@ -22,7 +22,7 @@ search_index() {
         fi
     done
     
-    ui_list Car car_simpleListElement "${Cars[@]}"
+    ui_list Car ui_car "${Cars[@]}"
     
     search_handle $?
     

@@ -3,13 +3,13 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${User_ID}
+db_import User ${USER_ID}
 
 
 testDrive_index() {
     title="JAZDA TESTOWA"
     ui_header "${title}"
-    
+
     local Cars
     for i in $(db_getAll Car); do
         db_import Car $i
@@ -17,8 +17,8 @@ testDrive_index() {
             Cars+=("$Car_ID")
         fi
     done
-    ui_list Car car_simpleListElement "${Cars[@]}"
-    
+    ui_list Car ui_car "${Cars[@]}"
+  
     testDrive_handle $?
     
     return $?
@@ -42,11 +42,15 @@ testDrive_handle() {
         read -p "Data [YYYY-MM-DD]: " date
     done;
     echo ""
-    ui_line
 
-    TestDrive_UserID=$User_ID
-    TestDrive_Date=$date    
-    db_save TestDrive
-    
-    return 0
+    ui_actions "Potwierdź"
+
+    if [ $? == "1" ]; then
+        TestDrive_UserID=$USER_ID
+        TestDrive_CarID=$1
+        TestDrive_date=$date    
+        db_save TestDrive
+        return 0
+    fi
+    return 3;
 }

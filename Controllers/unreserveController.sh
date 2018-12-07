@@ -3,39 +3,37 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${USER_ID}
+db_import User ${User_ID}
 
 
-sell_index() {
-    title="SPRZEDAJ"
+unreserve_index() {
+    title="ODREZERWUJ"
     ui_header "${title}"
     
     local Cars
     for i in $(db_getAll Car); do
         db_import Car $i
-        if [ $Car_UserID == $USER_ID ]; then
+        if [ $USER_ID == $Car_reservedByUserID ]; then
             Cars+=("$Car_ID")
         fi
     done
     ui_list Car ui_car "${Cars[@]}"
     
-    sell_handle $?
+    unreserve_handle $?
     
     return $?
 }
 
 
-sell_handle() {
+unreserve_handle() {
     if [ "$1" == "0" ]; then
         return 3
     fi
     
     db_import Car $1
-    Car_UserID=$DEALER
-    Car_reservedByUserID=$DEALER
+    Car_reservedByUserID=$DEALER;
     db_save Car $1
-
-    ui_header "SPRZEDAJ: ${Car_brand}"
     
+    title="ODREZERWOWANIE: ${Car_brand}"
     return 0
 }

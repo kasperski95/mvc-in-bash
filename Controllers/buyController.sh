@@ -3,7 +3,7 @@
 source ./config.sh
 source ./Views/UI/index.sh
 source ./Services/db.sh
-db_import User ${User_ID}
+db_import User ${USER_ID}
 
 
 buy_index() {
@@ -17,7 +17,7 @@ buy_index() {
             Cars+=("$Car_ID")
         fi
     done
-    ui_list Car car_simpleListElement "${Cars[@]}"
+    ui_list Car ui_car "${Cars[@]}"
     
     buy_handle $?
     
@@ -31,9 +31,8 @@ buy_handle() {
     fi
     
     db_import Car $1
-    Car_UserID=$User_ID
-    Car_reservedByUserID=$User_ID
-    db_save Car $1
+    Car_UserID=$USER_ID
+    Car_reservedByUserID=$USER_ID
     
     ui_header "SPOSÓB ZAPŁATY ZA: ${Car_brand}"
     
@@ -45,12 +44,14 @@ buy_handle() {
         "3") Transaction_type="Płatność inną walutą";;
         *) return 3
     esac
-    Transaction_UserID=$User_ID
+    Transaction_UserID=$USER_ID
     Transaction_CarID=$Car_ID
     Transaction_sum=$Car_price
     Transaction_currency=$Car_currency
     Transaction_date=$(date)
     Transaction_title="Zakup samochodu - ${Car_brand}"
+
+    db_save Car $1
     db_save Transaction
     return 0
 }
