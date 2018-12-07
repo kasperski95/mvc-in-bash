@@ -35,7 +35,7 @@ buy_handle() {
     Car_reservedByUserID=$USER
     
 
-    ui_header "SPOSÓB ZAPŁATY ZA: ${Car_brand} $Car_name" 
+    ui_header "KUP: ${Car_brand} $Car_name za $Car_price $Car_currency" 
     ui_actions "Karta" "Gotówka" "Inna waluta"
     case "$?" in
         "1") Transaction_type="Płatność kartą";;

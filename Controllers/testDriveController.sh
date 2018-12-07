@@ -34,9 +34,9 @@ testDrive_handle() {
     ui_header "JAZDA TESTOWA: ${Car_brand}"
     
     local testDriveDate
-    while [[ ! $date =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; do
+    while [[ ! $testDriveDate =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; do
         ui_header "JAZDA TESTOWA: ${Car_brand}"
-        if [ "$date" != "" ]; then
+        if [ "$testDriveDate" != "" ]; then
             echo "Niepoprawna data."
         fi
         read -p "Data [YYYY-MM-DD]: " testDriveDate

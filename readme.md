@@ -1,3 +1,8 @@
-Systemy operacyjne - powtórzenie
+# Projekt z przedmiotu: Systemy operacyjne 
+Komis samochodowy.
 
-shm - Shell Models - files must finish with empty line
+# Struktura
+Program oparty jest o autorską implementację modelu MVC (ASP.NET Core) w Shellu.
+
+# Uwagi
+- shm - własny format przechowujący modele. Ostatnia linia pliku musi być pusta.

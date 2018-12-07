@@ -31,8 +31,9 @@ reserve_handle() {
     fi
     
     db_import Car $1
-
-    ui_header "PŁATNOŚĆ ZA: ${Car_brand} $Car_name" 
+    Transaction_sum=$(echo "scale=0;$Car_price/10" | bc)
+    Transaction_currency=$Car_currency
+    ui_header "ZAREZERWUJ: ${Car_brand} $Car_name za $Transaction_sum $Transaction_currency"  
     ui_actions "Karta" "Gotówka" "Inna waluta"
     case "$?" in
         "1") Transaction_type="Płatność kartą";;
@@ -43,8 +44,6 @@ reserve_handle() {
     Transaction_UserID=$USER
     Transaction_CarID=$Car_ID
     Transaction_title="Rezerwacja samochodu - ${Car_brand} $Car_name"
-    Transaction_sum=$(echo "scale=0;$Car_price/10" | bc)
-    Transaction_currency=$Car_currency
     Transaction_date=$(date)
     db_save Transaction
 

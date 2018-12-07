@@ -42,6 +42,7 @@ transactions_handle() {
     db_import User $Transaction_UserID
     echo "Odbiorca: $User_firstname $User_lastname"
     echo "Kwota: $Transaction_sum $Transaction_currency"
+    echo "Sposób płatności: $Transaction_type"
     echo ""
 
     ui_actions "Eksportuj"
@@ -61,6 +62,7 @@ transactions_handle() {
         db_import User $Transaction_UserID
         echo "Odbiorca: $User_firstname $User_lastname" >> $file
         echo "Kwota: $Transaction_sum $Transaction_currency" >> $file
+        echo "Sposób płatności: $Transaction_type" >> $file
         return 0
     fi
 

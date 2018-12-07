@@ -2,6 +2,7 @@
 
 source ./config.sh
 source ./Views/UI/index.sh
+source ./Controllers/carInfoController.sh
 source ./Services/db.sh
 db_import User ${USER}
 
@@ -24,22 +25,7 @@ search_index() {
     
     ui_list Car ui_car "${Cars[@]}"
     
-    search_handle $?
+    carInfo_handle $?
     
     return $?
-}
-
-
-search_handle() {
-    if [ "$1" == "0" ]; then
-        return 3
-    fi
-    
-    db_import Car $1
-    ui_header "$Car_brand"
-
-    echo "Cena: $Car_price $Car_currency"
-    echo "Przebieg: $Car_mileage km"
-    
-    return 1
 }

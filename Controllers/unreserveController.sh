@@ -13,7 +13,7 @@ unreserve_index() {
     local Cars
     for i in $(db_getAll Car); do
         db_import Car $i
-        if [ $USER == $Car_reservedByUserID ]; then
+        if [ $USER == $Car_reservedByUserID ] && [ $Car_UserID == $DEALER ]; then
             Cars+=("$Car_ID")
         fi
     done
