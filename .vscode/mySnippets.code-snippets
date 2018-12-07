@@ -47,5 +47,48 @@
 		"body": [
 			"read -p \"$1: \\${$1}\" x"
 		]
+	},
+
+	"controller": {
+		"prefix": "ic",
+		"body": [
+			"#!/bin/bash",
+			"",
+			"source ./config.sh",
+			"source ./Views/UI/index.sh",
+			"source ./Services/db.sh",
+			"db_import User \\${User_ID}",
+			"",
+			"",
+			"$1_index() {",
+				"\ttitle=\"$1\"",
+				"\tui_header \"\\${title}\"",
+				"\t",
+				"\tlocal $2s",
+				"\tfor i in \\$(db_getAll $2); do",
+					"\t\tdb_import $2 \\$i",
+					"\t\t$2s+=(\"\\$$2_ID\")",
+				"\tdone",
+				"\tui_actions \"\\${$2s[@]}\"",
+				"\t",
+				"\tbuy_handle \\$?",
+				"\t",
+				"\treturn \\$?",
+			"}",
+			"",
+			"",
+			"$1_handle() {",
+				"\tif [ \"\\$1\" == \"0\" ]; then",
+					"\t\treturn 3",
+				"\tfi",
+				"\t",
+				"\tdb_import $2 \\$1",
+				"\tui_header \"\\${$2_ID}\"",
+				"\t",
+				"\techo \"<details to be printed>\"",
+				"\t",
+				"\treturn 1",
+			"}"
+		]
 	}
 }

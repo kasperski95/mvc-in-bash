@@ -14,5 +14,8 @@ ui_footer() {
     ui_line
     local action
     read -p ":" action
+    if [ "$action" == "" ]; then
+        action=0
+    fi
     return $action
 }

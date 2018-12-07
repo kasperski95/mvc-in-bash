@@ -23,7 +23,8 @@ db_save() {
 
     # find next id if not defined
     if [ "$id" == "" ]; then
-        id=$(_db_getNewId "$modelName")
+        id=$(db_getLastId "$modelName")
+        ((id++))
     fi
 
     # extract keys
@@ -34,11 +35,11 @@ db_save() {
 
     # get values using eval
     local values
-    for i in ${keys[@]}; do
+    for key in ${keys[@]}; do
         if [ "$key" == "ID" ]; then
             values+=("$id")
         else
-            values+=($(eval echo \$$modelName\_$i))
+            values+=("$(eval echo \$$modelName\_$key)")
         fi
     done
 
@@ -50,6 +51,7 @@ db_save() {
     done
 }
 
+
 db_import() {
     local modelName="$1" 
     local id="$2"
@@ -57,9 +59,10 @@ db_import() {
     # extract keys
     local key value
     while read -r line; do    
-        eval "User_${line%:*}=${line#*:}"
+        eval "${modelName}_${line%:*}=\"${line#*:}\""
     done < "$DB/$modelName/$id.$DB_EXT"
 }
+
 
 db_remove() {
     local modelName="$1" 
@@ -68,10 +71,17 @@ db_remove() {
     rm "$DB/$modelName/$id.$DB_EXT"
 }
 
-#-------------------------------------------------------------
+db_getAllKeys() {
+    while read -r key; do
+        echo "$key"
+    done < "./Models/$modelName.shm"
+}
 
-_db_getNewId() {
-    local id=$(ls $DB/$1/ | sort -r -n | head -n 1 | sed  "s/.$DB_EXT//")
-    ((id++))
-    echo $id
+db_getLastId() {
+    db_getAll $1 | tail -n 1
+}
+
+
+db_getAll() {
+    ls $DB/$1/ | sort -n | sed "s/.$DB_EXT//"
 }
