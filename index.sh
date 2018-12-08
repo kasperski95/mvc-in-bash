@@ -1,6 +1,8 @@
 #!/bin/bash
 
-if [ ! -d "./Database" ]; then
+source ./config.sh
+
+if [ ! -d "$DB" ]; then
     source ./mock.sh
 fi
 
