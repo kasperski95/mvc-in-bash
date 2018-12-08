@@ -20,6 +20,13 @@ db_save User
 Car_UserID="1"
 Car_currency="PLN"
 Car_reservedByUserID="1"
+Car_power="250"
+Car_fuelUsage="7"
+Car_acceleration="7"
+Car_body="Sedan"
+Car_length="4915"
+Car_width="1900"
+Car_bootVolume="400"
 
 Car_brand="Audi"
 Car_name="A6"

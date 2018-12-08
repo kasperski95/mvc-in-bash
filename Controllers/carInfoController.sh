@@ -39,7 +39,13 @@ carInfo_handle() {
     echo "Cena: $Car_price $Car_currency"
     echo "Rocznik: $Car_year"
     echo "Przebieg: $Car_mileage km"
-    
+    echo "Nadwozie: $Car_body km"
+    echo "Moc: $Car_power hp"
+    echo "Zużycie paliwa na 100 km: ${Car_fuelUsage} l"
+    echo "0-100 km/h: ${Car_acceleration} s"
+    echo "Długość: $Car_length mm"
+    echo "Szerokość: $Car_width mm"
+    echo "Pojemność bagażnika: ${Car_bootVolume} l"
     echo ""
 
     ui_actions "Eksportuj"
@@ -56,6 +62,13 @@ carInfo_handle() {
         echo "Cena: $Car_price $Car_currency" >> $file
         echo "Rocznik: $Car_year" >> $file
         echo "Przebieg: $Car_mileage km" >> $file
+        echo "Nadwozie: $Car_body km" >> $file
+        echo "Moc: $Car_power hp" >> $file
+        echo "Zużycie paliwa na 100 km: ${Car_fuelUsage} l"
+        echo "0-100 km/h: ${Car_acceleration} s" >> $file
+        echo "Długość: $Car_length mm" >> $file
+        echo "Szerokość: $Car_width mm" >> $file
+        echo "Pojemność bagażnika: $Car_bootVolume l" >> $file
         return 0
     fi
 

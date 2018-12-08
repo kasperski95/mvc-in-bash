@@ -7,3 +7,10 @@ price
 currency
 mileage
 reservedByUserID
+power
+fuelUsage
+acceleration
+body
+length
+width
+bootVolume
