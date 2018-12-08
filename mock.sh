@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [ -d "./Database" ]; then
-    rm -r "./Database"
+source ./config.sh
+
+if [ -d "$DB" ]; then
+    rm -r "$DB"
 fi
 
 source ./Services/db.sh
