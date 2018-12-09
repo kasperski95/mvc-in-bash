@@ -39,7 +39,7 @@ carInfo_handle() {
     echo "Cena: $Car_price $Car_currency"
     echo "Rocznik: $Car_year"
     echo "Przebieg: $Car_mileage km"
-    echo "Nadwozie: $Car_body km"
+    echo "Nadwozie: $Car_body"
     echo "Moc: $Car_power hp"
     echo "Zużycie paliwa na 100 km: ${Car_fuelUsage} l"
     echo "0-100 km/h: ${Car_acceleration} s"
@@ -62,7 +62,7 @@ carInfo_handle() {
         echo "Cena: $Car_price $Car_currency" >> $file
         echo "Rocznik: $Car_year" >> $file
         echo "Przebieg: $Car_mileage km" >> $file
-        echo "Nadwozie: $Car_body km" >> $file
+        echo "Nadwozie: $Car_body" >> $file
         echo "Moc: $Car_power hp" >> $file
         echo "Zużycie paliwa na 100 km: ${Car_fuelUsage} l"
         echo "0-100 km/h: ${Car_acceleration} s" >> $file

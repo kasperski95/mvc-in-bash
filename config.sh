@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WIDTH=60
+WIDTH=46
 DB="./Database"
 DB_EXT="kas"
 DB_SEPARATOR="::"
